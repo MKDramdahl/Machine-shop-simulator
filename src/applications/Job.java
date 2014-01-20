@@ -5,10 +5,10 @@ import dataStructures.LinkedQueue;
 public class Job {
 
     // data members
-    public LinkedQueue taskQ; // this job's tasks
-    public int length; // sum of scheduled task times
-    public int arrivalTime; // arrival time at current queue
-    public int id; // job identifier
+    private LinkedQueue taskQ; // this job's tasks
+    private int length; // sum of scheduled task times
+    private int arrivalTime; // arrival time at current queue
+    private int id; // job identifier
 
     // constructor
     public Job(int theId) {
@@ -29,5 +29,25 @@ public class Job {
         int theTime = ((Task) taskQ.remove()).getTime();
         length += theTime;
         return theTime;
+    }
+    
+    public LinkedQueue getTasks() {
+    	return taskQ;
+    }
+    
+    public int getTotalTime() {
+    	return length;
+    }
+    
+    public int getArrivalTime() {
+    	return arrivalTime;
+    }
+    
+    public int getID() {
+    	return id;
+    }
+    
+    public void setArrivalTime(int time) {
+    	arrivalTime = time;
     }
 }
