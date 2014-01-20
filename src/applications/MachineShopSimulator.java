@@ -15,34 +15,7 @@ public class MachineShopSimulator {
     public static final String BAD_MACHINE_NUMBER_OR_TASK_TIME = "bad machine number or task time";
     
     // top-level nested classes
-    private static class Job {
-        // data members
-        private LinkedQueue taskQ; // this job's tasks
-        private int length; // sum of scheduled task times
-        private int arrivalTime; // arrival time at current queue
-        private int id; // job identifier
 
-        // constructor
-        private Job(int theId) {
-            id = theId;
-            taskQ = new LinkedQueue();
-            // length and arrivalTime have default value 0
-        }
-
-        // other methods
-        private void addTask(int theMachine, int theTime) {
-            taskQ.put(new Task(theMachine, theTime));
-        }
-
-        /**
-         * remove next task of job and return its time also update length
-         */
-        private int removeNextTask() {
-            int theTime = ((Task) taskQ.remove()).time;
-            length += theTime;
-            return theTime;
-        }
-    }
 
     private static class Machine {
         // data members
