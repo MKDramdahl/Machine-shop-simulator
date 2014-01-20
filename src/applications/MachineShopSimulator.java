@@ -17,20 +17,6 @@ public class MachineShopSimulator {
     // top-level nested classes
 
 
-    private static class Machine {
-        // data members
-        LinkedQueue jobQ; // queue of waiting jobs for this machine
-        int changeTime; // machine change-over time
-        int totalWait; // total delay at this machine
-        int numTasks; // number of tasks processed on this machine
-        Job activeJob; // job currently active on this machine
-
-        // constructor
-        private Machine() {
-            jobQ = new LinkedQueue();
-        }
-    }
-
     private static class EventList {
         // data members
         int[] finishTime; // finish time array
