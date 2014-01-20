@@ -36,7 +36,7 @@ public class MachineShopSimulator {
             return false;
         } else {// theJob has a next task
                 // get machine for next task
-            int p = ((Task) theJob.taskQ.getFrontElement()).machine;
+            int p = ((Task) theJob.taskQ.getFrontElement()).getMachine();
             // put on machine p's wait queue
             machine[p].jobQ.put(theJob);
             theJob.arrivalTime = timeNow;

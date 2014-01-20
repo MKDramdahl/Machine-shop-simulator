@@ -26,7 +26,7 @@ public class Job {
      * remove next task of job and return its time also update length
      */
     public int removeNextTask() {
-        int theTime = ((Task) taskQ.remove()).time;
+        int theTime = ((Task) taskQ.remove()).getTime();
         length += theTime;
         return theTime;
     }
