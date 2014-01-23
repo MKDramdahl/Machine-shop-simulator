@@ -71,8 +71,4 @@ public class Job {
     public int getID() {
     	return id;
     }
-    
-    public void setArrivalTime(int time) {
-    	arrivalTime = time;
-    }
 }
