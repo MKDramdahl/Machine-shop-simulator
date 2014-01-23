@@ -31,12 +31,11 @@ public class Machine {
     					MachineShopSimulator.getFinishBy());
     		else {// take job off the queue and work on it
     			activeJob = (Job) jobs.remove();
-    			totalWait = totalWait + MachineShopSimulator.getCurrentTime()
+    			totalWait += MachineShopSimulator.getCurrentTime()
     					- activeJob.getArrivalTime();
     			this.setNumberOfTasks();
-    			int t = activeJob.removeNextTask();
     			MachineShopSimulator.getEventList().setFinishTime(theMachine,
-    					MachineShopSimulator.getCurrentTime() + t);
+    					MachineShopSimulator.getCurrentTime() + activeJob.removeNextTask());
     		}
     	} else {// task has just finished on machine[theMachine]
     		    // schedule change-over time
