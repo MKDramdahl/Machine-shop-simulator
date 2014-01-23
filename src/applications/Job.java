@@ -31,6 +31,31 @@ public class Job {
         return theTime;
     }
     
+    /**
+     * move theJob to machine for its next task
+     * @return false iff no next task
+     */
+    public boolean moveToNextMachine() {
+        if (tasks.isEmpty()) {// no next task
+            System.out.println("Job " + id + " has completed at "
+                    + MachineShopSimulator.getCurrentTime() + " Total wait was "
+            		+ (MachineShopSimulator.getCurrentTime() - totalTime));
+            return false;
+        } else {// theJob has a next task
+                // get machine for next task
+            int p = ((Task) tasks.getFrontElement()).getMachine();
+            // put on machine p's wait queue
+            MachineShopSimulator.getMachineArray()[p].getJobs().put(this);
+            arrivalTime = MachineShopSimulator.getCurrentTime();
+            // if p idle, schedule immediately
+            if (MachineShopSimulator.getEventList().nextEventTime(p)
+            		== MachineShopSimulator.getFinishBy()) {// machine is idle
+                MachineShopSimulator.changeState(p);
+            }
+            return true;
+        }
+    }
+    
     public LinkedQueue getTasks() {
     	return tasks;
     }

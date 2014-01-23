@@ -3,7 +3,6 @@
 package applications;
 
 import utilities.MyInputStream;
-import dataStructures.LinkedQueue;
 import exceptions.MyInputException;
 
 public class MachineShopSimulator {
@@ -24,28 +23,20 @@ public class MachineShopSimulator {
     private static int finishBy; // all machines finish before this
 
     // methods
-    /**
-     * move theJob to machine for its next task
-     * 
-     * @return false iff no next task
-     */
-    static boolean moveToNextMachine(Job theJob) {
-        if (theJob.getTasks().isEmpty()) {// no next task
-            System.out.println("Job " + theJob.getID() + " has completed at "
-                    + currentTime + " Total wait was " + (currentTime - theJob.getTotalTime()));
-            return false;
-        } else {// theJob has a next task
-                // get machine for next task
-            int p = ((Task) theJob.getTasks().getFrontElement()).getMachine();
-            // put on machine p's wait queue
-            machineArray[p].getJobs().put(theJob);
-            theJob.setArrivalTime(currentTime);
-            // if p idle, schedule immediately
-            if (eventList.nextEventTime(p) == finishBy) {// machine is idle
-                changeState(p);
-            }
-            return true;
-        }
+    public static int getCurrentTime() {
+    	return currentTime;
+    }
+    
+    public static EventList getEventList() {
+    	return eventList;
+    }
+    
+    public static Machine[] getMachineArray() {
+    	return machineArray;
+    }
+    
+    public static int getFinishBy() {
+    	return finishBy;
     }
 
     /**
@@ -149,7 +140,7 @@ public class MachineShopSimulator {
             Job theJob = changeState(nextToFinish);
             // move theJob to its next machine
             // decrement numJobs if theJob has finished
-            if (theJob != null && !moveToNextMachine(theJob))
+            if (theJob != null && !theJob.moveToNextMachine())
                 numberOfJobs--;
         }
     }
