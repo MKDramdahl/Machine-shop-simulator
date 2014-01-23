@@ -50,7 +50,7 @@ public class Job {
             // if p idle, schedule immediately
             if (MachineShopSimulator.getEventList().nextEventTime(p)
             		== MachineShopSimulator.getFinishBy()) {// machine is idle
-                MachineShopSimulator.changeState(p);
+                MachineShopSimulator.getMachineArray()[p].changeState(p);
             }
             return true;
         }

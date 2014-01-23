@@ -39,39 +39,6 @@ public class MachineShopSimulator {
     	return finishBy;
     }
 
-    /**
-     * change the state of theMachine
-     * 
-     * @return last job run on this machine
-     */
-    static Job changeState(int theMachine) {// Task on theMachine has finished,
-                                            // schedule next one.
-        Job lastJob;
-        if (machineArray[theMachine].getActiveJob() == null) {// in idle or change-over
-                                                    // state
-            lastJob = null;
-            // wait over, ready for new job
-            if (machineArray[theMachine].getJobs().isEmpty()) // no waiting job
-                eventList.setFinishTime(theMachine, finishBy);
-            else {// take job off the queue and work on it
-                machineArray[theMachine].setActiveJob((Job) machineArray[theMachine].getJobs().remove());
-                machineArray[theMachine].setTotalWait(machineArray[theMachine].getTotalWait() + currentTime
-                        - machineArray[theMachine].getActiveJob().getArrivalTime());
-                machineArray[theMachine].setNumberOfTasks();
-                int t = machineArray[theMachine].getActiveJob().removeNextTask();
-                eventList.setFinishTime(theMachine, currentTime + t);
-            }
-        } else {// task has just finished on machine[theMachine]
-                // schedule change-over time
-            lastJob = machineArray[theMachine].getActiveJob();
-            machineArray[theMachine].setActiveJob(null);
-            eventList.setFinishTime(theMachine, currentTime
-                    + machineArray[theMachine].getChangeTime());
-        }
-
-        return lastJob;
-    }
-
     /** input machine shop data */
     static void inputData() {
         // define the input stream to be the standard input stream
@@ -128,7 +95,7 @@ public class MachineShopSimulator {
     /** load first jobs onto each machine */
     static void startShop() {
         for (int p = 1; p <= numberOfMachines; p++)
-            changeState(p);
+            machineArray[p].changeState(p);
     }
 
     /** process all jobs to completion */
@@ -137,7 +104,7 @@ public class MachineShopSimulator {
             int nextToFinish = eventList.nextEventMachine();
             currentTime = eventList.nextEventTime(nextToFinish);
             // change job on machine nextToFinish
-            Job theJob = changeState(nextToFinish);
+            Job theJob = machineArray[nextToFinish].changeState(nextToFinish);
             // move theJob to its next machine
             // decrement numJobs if theJob has finished
             if (theJob != null && !theJob.moveToNextMachine())

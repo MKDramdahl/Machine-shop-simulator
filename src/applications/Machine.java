@@ -16,6 +16,39 @@ public class Machine {
         jobs = new LinkedQueue();
     }
     
+    /**
+     * change the state of theMachine
+     * @return last job run on this machine
+     */
+    public Job changeState(int theMachine) {// Task on theMachine has finished,
+    	                                    // schedule next one.
+    	Job lastJob;
+    	if (activeJob == null) {// in idle or change-over state
+    		lastJob = null;
+    		// wait over, ready for new job
+    		if (jobs.isEmpty()) // no waiting job
+    			MachineShopSimulator.getEventList().setFinishTime(theMachine,
+    					MachineShopSimulator.getFinishBy());
+    		else {// take job off the queue and work on it
+    			activeJob = (Job) jobs.remove();
+    			totalWait = totalWait + MachineShopSimulator.getCurrentTime()
+    					- activeJob.getArrivalTime();
+    			this.setNumberOfTasks();
+    			int t = activeJob.removeNextTask();
+    			MachineShopSimulator.getEventList().setFinishTime(theMachine,
+    					MachineShopSimulator.getCurrentTime() + t);
+    		}
+    	} else {// task has just finished on machine[theMachine]
+    		    // schedule change-over time
+    		lastJob = activeJob;
+    		activeJob = null;
+    		MachineShopSimulator.getEventList().setFinishTime(theMachine,
+    				MachineShopSimulator.getCurrentTime() + changeTime);
+    	}
+
+    	return lastJob;
+    }
+    
     public LinkedQueue getJobs() {
     	return jobs;
     }
