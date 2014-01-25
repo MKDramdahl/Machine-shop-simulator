@@ -6,6 +6,7 @@ public class Machine {
 
     // data members
     private LinkedQueue jobs; // queue of waiting jobs for this machine
+    private int id; 
     private int changeTime; // machine change-over time
     private int totalWait; // total delay at this machine
     private int numberOfTasks; // number of tasks processed on this machine
@@ -50,6 +51,10 @@ public class Machine {
     
     public LinkedQueue getJobs() {
     	return jobs;
+    }
+    
+    public int getId(){
+    	return id;
     }
     
     public int getChangeTime() {
