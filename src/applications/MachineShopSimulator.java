@@ -20,7 +20,7 @@ public class MachineShopSimulator {
     private static int numberOfJobs; // number of jobs
     private static EventList eventList; // pointer to event list
     private static Machine[] machineArray; // array of machines
-    private static int finishBy; // all machines finish before this
+    private static int finishBy = Integer.MAX_VALUE; // all machines finish before this
 
     // methods
     public static int getCurrentTime() {
@@ -134,7 +134,6 @@ public class MachineShopSimulator {
 
     /** entry point for machine shop simulator */
     public static void main(String[] args) {
-        finishBy = Integer.MAX_VALUE;
         /*
          * It's vital that we (re)set this to 0 because if the simulator is called
          * multiple times (as happens in the acceptance tests), because timeNow
