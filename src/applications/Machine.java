@@ -13,7 +13,8 @@ public class Machine {
     private Job activeJob; // job currently active on this machine
 
     // constructor
-    public Machine() {
+    public Machine(int idNum) {
+    	id = idNum;
         jobs = new LinkedQueue();
     }
     
