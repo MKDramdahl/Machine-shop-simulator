@@ -22,28 +22,28 @@ public class Machine {
      * change the state of theMachine
      * @return last job run on this machine
      */
-    public Job changeState(int theMachine) {// Task on theMachine has finished,
+    public Job changeState() {// Task on theMachine has finished,
     	                                    // schedule next one.
     	Job lastJob;
     	if (activeJob == null) {// in idle or change-over state
     		lastJob = null;
     		// wait over, ready for new job
     		if (jobs.isEmpty()) // no waiting job
-    			MachineShopSimulator.getEventList().setFinishTime(theMachine,
+    			MachineShopSimulator.getEventList().setFinishTime(id,
     					MachineShopSimulator.getFinishBy());
     		else {// take job off the queue and work on it
     			activeJob = (Job) jobs.remove();
     			totalWait += MachineShopSimulator.getCurrentTime()
     					- activeJob.getArrivalTime();
     			this.setNumberOfTasks();
-    			MachineShopSimulator.getEventList().setFinishTime(theMachine,
+    			MachineShopSimulator.getEventList().setFinishTime(id,
     					MachineShopSimulator.getCurrentTime() + activeJob.removeNextTask());
     		}
     	} else {// task has just finished on machine[theMachine]
     		    // schedule change-over time
     		lastJob = activeJob;
     		activeJob = null;
-    		MachineShopSimulator.getEventList().setFinishTime(theMachine,
+    		MachineShopSimulator.getEventList().setFinishTime(id,
     				MachineShopSimulator.getCurrentTime() + changeTime);
     	}
 
