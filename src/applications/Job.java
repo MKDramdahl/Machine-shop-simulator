@@ -56,19 +56,7 @@ public class Job {
         }
     }
     
-    public LinkedQueue getTasks() {
-    	return tasks;
-    }
-    
-    public int getTotalTime() {
-    	return totalTime;
-    }
-    
     public int getArrivalTime() {
     	return arrivalTime;
-    }
-    
-    public int getID() {
-    	return id;
     }
 }

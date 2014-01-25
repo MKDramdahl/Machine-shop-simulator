@@ -35,7 +35,7 @@ public class Machine {
     			activeJob = (Job) jobs.remove();
     			totalWait += MachineShopSimulator.getCurrentTime()
     					- activeJob.getArrivalTime();
-    			this.setNumberOfTasks();
+    			numberOfTasks++;
     			MachineShopSimulator.getEventList().setFinishTime(id,
     					MachineShopSimulator.getCurrentTime() + activeJob.removeNextTask());
     		}
@@ -54,14 +54,6 @@ public class Machine {
     	return jobs;
     }
     
-    public int getId(){
-    	return id;
-    }
-    
-    public int getChangeTime() {
-    	return changeTime;
-    }
-    
     public int getTotalWait() {
     	return totalWait;
     }
@@ -70,23 +62,7 @@ public class Machine {
     	return numberOfTasks;
     }
     
-    public Job getActiveJob() {
-    	return activeJob;
-    }
-    
     public void setChangeTime(int time) {
     	changeTime = time;
-    }
-    
-    public void setTotalWait(int delay) {
-    	totalWait = delay;
-    }
-    
-    public void setNumberOfTasks() {
-    	numberOfTasks++;
-    }
-    
-    public void setActiveJob(Job job) {
-    	activeJob = job;
     }
 }
