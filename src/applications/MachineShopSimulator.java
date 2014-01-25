@@ -20,7 +20,6 @@ public class MachineShopSimulator {
     private static int numberOfJobs; // number of jobs
     private static EventList eventList; // pointer to event list
     private static Machine[] machineArray; // array of machines
-    private static int finishBy = Integer.MAX_VALUE; // all machines finish before this
 
     // methods
     public static int getCurrentTime() {
@@ -33,10 +32,6 @@ public class MachineShopSimulator {
     
     public static Machine[] getMachineArray() {
     	return machineArray;
-    }
-    
-    public static int getFinishBy() {
-    	return finishBy;
     }
     
     private static void createMachineArray(){
@@ -57,7 +52,7 @@ public class MachineShopSimulator {
             throw new MyInputException(NUMBER_OF_MACHINES_AND_JOBS_MUST_BE_AT_LEAST_1);
 
         // create event and machine queues
-        eventList = new EventList(numberOfMachines, finishBy);
+        eventList = new EventList(numberOfMachines, Integer.MAX_VALUE);
         createMachineArray();
 
         // input the change-over times

@@ -30,7 +30,7 @@ public class Machine {
     		// wait over, ready for new job
     		if (jobs.isEmpty()) // no waiting job
     			MachineShopSimulator.getEventList().setFinishTime(id,
-    					MachineShopSimulator.getFinishBy());
+    					Integer.MAX_VALUE);
     		else {// take job off the queue and work on it
     			activeJob = (Job) jobs.remove();
     			totalWait += MachineShopSimulator.getCurrentTime()
