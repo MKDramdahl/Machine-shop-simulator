@@ -42,10 +42,7 @@ public class MachineShopSimulator {
             machineArray[i] = new Machine(i);
     }
     
-    static void createJob(){
-    	
-    }
-    
+   
     static void getChangeOverInput(MyInputStream input){
         System.out.println("Enter change-over times for machines");
         for (int j = 0; j < numberOfMachines; j++) {
