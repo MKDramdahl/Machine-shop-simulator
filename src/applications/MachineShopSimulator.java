@@ -39,7 +39,17 @@ public class MachineShopSimulator {
         for (int i = 0; i < numberOfMachines; i++)
             machineArray[i] = new Machine(i);
     }
-
+    
+    static void changeOverInput(MyInputStream input){
+        System.out.println("Enter change-over times for machines");
+        for (int j = 0; j < numberOfMachines; j++) {
+            int ct = input.readInteger();
+            if (ct < 0)
+                throw new MyInputException(CHANGE_OVER_TIME_MUST_BE_AT_LEAST_0);
+            machineArray[j].setChangeTime(ct);
+        }
+    }
+    
     /** input machine shop data */
     static void inputData() {
         // define the input stream to be the standard input stream
@@ -56,13 +66,7 @@ public class MachineShopSimulator {
         createMachineArray();
 
         // input the change-over times
-        System.out.println("Enter change-over times for machines");
-        for (int j = 0; j < numberOfMachines; j++) {
-            int ct = keyboard.readInteger();
-            if (ct < 0)
-                throw new MyInputException(CHANGE_OVER_TIME_MUST_BE_AT_LEAST_0);
-            machineArray[j].setChangeTime(ct);
-        }
+        changeOverInput(keyboard);
 
         // input the jobs
         Job theJob;
