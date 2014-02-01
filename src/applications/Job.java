@@ -45,12 +45,12 @@ public class Job {
                 // get machine for next task
             int p = ((Task) tasks.getFrontElement()).getMachine();
             // put on machine p's wait queue
-            MachineShopSimulator.getMachineArray()[p].getJobs().put(this);
+            MachineList.getMachine(p).getJobs().put(this);
             arrivalTime = MachineShopSimulator.getCurrentTime();
             // if p idle, schedule immediately
             if (MachineShopSimulator.getEventList().nextEventTime(p)
             		== Integer.MAX_VALUE) {// machine is idle
-                MachineShopSimulator.getMachineArray()[p].changeState();
+                MachineList.getMachine(p).changeState();
             }
             return true;
         }
