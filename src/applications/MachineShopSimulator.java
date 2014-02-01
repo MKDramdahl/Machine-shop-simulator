@@ -40,13 +40,42 @@ public class MachineShopSimulator {
             machineArray[i] = new Machine(i);
     }
     
-    static void changeOverInput(MyInputStream input){
+    static void getChangeOverInput(MyInputStream input){
         System.out.println("Enter change-over times for machines");
         for (int j = 0; j < numberOfMachines; j++) {
             int ct = input.readInteger();
             if (ct < 0)
                 throw new MyInputException(CHANGE_OVER_TIME_MUST_BE_AT_LEAST_0);
             machineArray[j].setChangeTime(ct);
+        }
+    }
+    
+    static void getJobsInput(MyInputStream input){
+        Job theJob;
+        int jobID;
+        for (int i = 0; i < numberOfJobs; i++) {
+        	jobID = i + 1;
+            System.out.println("Enter number of tasks for job " + jobID);
+            int tasks = input.readInteger(); // number of tasks
+            int firstMachine = 0; // machine for first task
+            if (tasks < 1){
+                throw new MyInputException(EACH_JOB_MUST_HAVE_AT_LEAST_1_TASK);
+            }
+            // create the job
+            theJob = new Job(jobID);
+            System.out.println("Enter the tasks (machine, time)"
+                    + " in process order");
+            for (int j = 0; j < tasks; j++) {// get tasks for job i
+                int theMachine = input.readInteger() - 1;
+                int theTaskTime = input.readInteger();
+                if (theMachine < 0 || theMachine > numberOfMachines
+                        || theTaskTime < 1)
+                    throw new MyInputException(BAD_MACHINE_NUMBER_OR_TASK_TIME);
+                if (j == 0)
+                    firstMachine = theMachine; // job's first machine
+                theJob.addTask(theMachine, theTaskTime); // add to
+            } // task queue
+            machineArray[firstMachine].getJobs().put(theJob);
         }
     }
     
@@ -66,35 +95,10 @@ public class MachineShopSimulator {
         createMachineArray();
 
         // input the change-over times
-        changeOverInput(keyboard);
+        getChangeOverInput(keyboard);
 
         // input the jobs
-        Job theJob;
-        int jobID;
-        for (int i = 0; i < numberOfJobs; i++) {
-        	jobID = i + 1;
-            System.out.println("Enter number of tasks for job " + jobID);
-            int tasks = keyboard.readInteger(); // number of tasks
-            int firstMachine = 0; // machine for first task
-            if (tasks < 1)
-                throw new MyInputException(EACH_JOB_MUST_HAVE_AT_LEAST_1_TASK);
-
-            // create the job
-            theJob = new Job(jobID);
-            System.out.println("Enter the tasks (machine, time)"
-                    + " in process order");
-            for (int j = 0; j < tasks; j++) {// get tasks for job i
-                int theMachine = keyboard.readInteger() - 1;
-                int theTaskTime = keyboard.readInteger();
-                if (theMachine < 0 || theMachine > numberOfMachines
-                        || theTaskTime < 1)
-                    throw new MyInputException(BAD_MACHINE_NUMBER_OR_TASK_TIME);
-                if (j == 0)
-                    firstMachine = theMachine; // job's first machine
-                theJob.addTask(theMachine, theTaskTime); // add to
-            } // task queue
-            machineArray[firstMachine].getJobs().put(theJob);
-        }
+        getJobsInput(keyboard);
     }
 
     /** load first jobs onto each machine */
