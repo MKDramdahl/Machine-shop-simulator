@@ -41,8 +41,7 @@ public class Job {
                     + MachineShopSimulator.getCurrentTime() + " Total wait was "
             		+ (MachineShopSimulator.getCurrentTime() - totalTime));
             return false;
-        } else {// theJob has a next task
-                // get machine for next task
+        } else {// theJob has a next task get machine for next task
             int p = ((Task) tasks.getFrontElement()).getMachine();
             // put on machine p's wait queue
             MachineList.getMachine(p).getJobs().put(this);

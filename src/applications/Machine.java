@@ -22,8 +22,7 @@ public class Machine {
      * change the state of theMachine
      * @return last job run on this machine
      */
-    public Job changeState() {// Task on theMachine has finished,
-    	                                    // schedule next one.
+    public Job changeState() {// Task on theMachine has finished, schedule next one.
     	Job lastJob;
     	if (activeJob == null) {// in idle or change-over state
     		lastJob = null;
@@ -39,8 +38,7 @@ public class Machine {
     			MachineShopSimulator.getEventList().setFinishTime(id,
     					MachineShopSimulator.getCurrentTime() + activeJob.removeNextTask());
     		}
-    	} else {// task has just finished on machine[theMachine]
-    		    // schedule change-over time
+    	} else {// task has just finished on machine[theMachine] schedule change-over time
     		lastJob = activeJob;
     		activeJob = null;
     		MachineShopSimulator.getEventList().setFinishTime(id,

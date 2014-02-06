@@ -6,25 +6,19 @@ public class EventList {
     private int[] finishTime; // finish time array
 
     // constructor
-    public EventList(int theNumMachines, int theLargeTime) {// initialize
-                                                             // finish
-                                                             // times for
-                                                             // m
-                                                             // machines
+    public EventList(int theNumMachines, int theLargeTime) {// initialize finish times for m machines
         if (theNumMachines < 1)
             throw new IllegalArgumentException(MachineShopSimulator.NUMBER_OF_MACHINES_MUST_BE_AT_LEAST_1);
         finishTime = new int[theNumMachines + 1];
 
-        // all machines are idle, initialize with
-        // large finish time
+        // all machines are idle, initialize with large finish time
         for (int i = 0; i < theNumMachines; i++)
             finishTime[i] = theLargeTime;
     }
 
     /** @return machine for next event */
     public int nextEventMachine() {
-        // find first machine to finish, this is the
-        // machine with smallest finish time
+        // find first machine to finish, this is the machine with smallest finish time
         int p = 0;
         int t = finishTime[0];
         for (int i = 1; i < finishTime.length - 1; i++)
