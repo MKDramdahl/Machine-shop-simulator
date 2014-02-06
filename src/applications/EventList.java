@@ -32,8 +32,4 @@ public class EventList {
     public int nextEventTime(int theMachine) {
         return finishTime[theMachine];
     }
-
-    public void setFinishTime(int theMachine, int theTime) {
-        finishTime[theMachine] = theTime;
-    }
 }

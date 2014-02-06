@@ -8,6 +8,7 @@ public class Machine {
     private LinkedQueue jobs; // queue of waiting jobs for this machine
     private int id; 
     private int changeTime; // machine change-over time
+    private int finishTime;
     private int totalWait; // total delay at this machine
     private int numberOfTasks; // number of tasks processed on this machine
     private Job activeJob; // job currently active on this machine
@@ -28,21 +29,18 @@ public class Machine {
     		lastJob = null;
     		// wait over, ready for new job
     		if (jobs.isEmpty()) // no waiting job
-    			MachineShopSimulator.getEventList().setFinishTime(id,
-    					Integer.MAX_VALUE);
+    			finishTime = Integer.MAX_VALUE;
     		else {// take job off the queue and work on it
     			activeJob = (Job) jobs.remove();
     			totalWait += MachineShopSimulator.getCurrentTime()
     					- activeJob.getArrivalTime();
     			numberOfTasks++;
-    			MachineShopSimulator.getEventList().setFinishTime(id,
-    					MachineShopSimulator.getCurrentTime() + activeJob.removeNextTask());
+    			finishTime = MachineShopSimulator.getCurrentTime() + activeJob.removeNextTask();
     		}
     	} else {// task has just finished on machine[theMachine] schedule change-over time
     		lastJob = activeJob;
     		activeJob = null;
-    		MachineShopSimulator.getEventList().setFinishTime(id,
-    				MachineShopSimulator.getCurrentTime() + changeTime);
+    		finishTime = MachineShopSimulator.getCurrentTime() + changeTime;
     	}
 
     	return lastJob;
