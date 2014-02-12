@@ -16,7 +16,6 @@ public class MachineShopSimulator {
     // data members of MachineShopSimulator
     private static int currentTime; // current time
     private static int numberOfJobs; // number of jobs
-    private static EventList eventList; // pointer to event list
 
     // methods
     public static int getNumberOfJobs() {
@@ -25,10 +24,6 @@ public class MachineShopSimulator {
     
     public static int getCurrentTime() {
     	return currentTime;
-    }
-    
-    public static EventList getEventList() {
-    	return eventList;
     }
     
     /** input machine shop data */
@@ -43,7 +38,6 @@ public class MachineShopSimulator {
             throw new MyInputException(NUMBER_OF_MACHINES_AND_JOBS_MUST_BE_AT_LEAST_1);
 
         // create event and machine queues
-        eventList = new EventList(MachineList.getNumberOfMachines(), Integer.MAX_VALUE);
         MachineList.createMachineArray();
 
         // input the change-over times
