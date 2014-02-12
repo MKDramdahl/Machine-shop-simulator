@@ -6,7 +6,6 @@ public class Machine {
 
     // data members
     private LinkedQueue jobs; // queue of waiting jobs for this machine
-    private int id; 
     private int changeTime; // machine change-over time
     private int finishTime;
     private int totalWait; // total delay at this machine
@@ -15,7 +14,6 @@ public class Machine {
 
     // constructor
     public Machine(int idNum) {
-    	id = idNum;
         jobs = new LinkedQueue();
     }
     
