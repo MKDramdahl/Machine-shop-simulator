@@ -62,7 +62,7 @@ public class MachineShopSimulator {
     /** process all jobs to completion */
     static void simulate() {
         while (numberOfJobs > 0) {// at least one job left
-            int nextToFinish = eventList.nextEventMachine();
+            int nextToFinish = MachineList.nextEventMachine();
             currentTime = MachineList.getMachine(nextToFinish).nextEventTime(); //eventList.nextEventTime(nextToFinish);
             // change job on machine nextToFinish
             Job theJob = MachineList.getMachine(nextToFinish).changeState();

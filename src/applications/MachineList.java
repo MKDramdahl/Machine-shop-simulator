@@ -69,4 +69,17 @@ public class MachineList {
     public static void setNumberOfMachines(int numMachines){
     	numberOfMachines = numMachines;
     }
+    
+    /** @return machine for next event */
+    public static int nextEventMachine() {
+        // find first machine to finish, this is the machine with smallest finish time
+        int p = 0;
+        int t = machineArray[0].nextEventTime();
+        for (int i = 1; i < machineArray.length - 1; i++)
+            if (machineArray[i].nextEventTime() < t) {// i finishes earlier
+                p = i;
+                t = machineArray[i].nextEventTime();
+            }
+        return p;
+    }
 }
