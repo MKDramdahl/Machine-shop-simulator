@@ -58,6 +58,10 @@ public class Machine {
     	return numberOfTasks;
     }
     
+    public int nextEventTime() {
+        return finishTime;
+    }
+    
     public void setChangeTime(int time) {
     	changeTime = time;
     }

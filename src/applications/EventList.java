@@ -28,8 +28,4 @@ public class EventList {
             }
         return p;
     }
-
-    public int nextEventTime(int theMachine) {
-        return finishTime[theMachine];
-    }
 }
